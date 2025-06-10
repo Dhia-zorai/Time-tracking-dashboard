@@ -222,7 +222,7 @@ h2 {
   main {
     width: auto;
     display: grid;
-    grid-template: repeat(2, 210px) / repeat(4, 1fr);
+    grid-template: repeat(2, 240px) / repeat(4, 1fr);
     gap: 30px;
   }
   .user-info {

@@ -1,6 +1,4 @@
-let daily_btn = document.querySelector(".daily-btn");
-let weekly_btn = document.querySelector(".weekly-btn");
-let monthly_btn = document.querySelector(".monthly-btn");
+let buttons = document.querySelectorAll("button");
 
 let daily = document.querySelectorAll(".daily");
 let weekly = document.querySelectorAll(".weekly");
@@ -13,36 +11,39 @@ let last_month = document.querySelectorAll(".last-month");
 weekly.forEach((el) => el.classList.add("active"));
 daily.forEach((el) => el.classList.remove("active"));
 monthly.forEach((el) => el.classList.remove("active"));
-last_week.forEach((el) => (el.innerHTML = "Last Week"));
-weekly_btn.classList.add("active");
+document.getElementById("weekly").classList.add("active");
+previous("weekly");
 
-daily_btn.addEventListener("click", (e) => {
-  e.preventDefault();
-  daily.forEach((el) => el.classList.add("active"));
-  weekly.forEach((el) => el.classList.remove("active"));
-  monthly.forEach((el) => el.classList.remove("active"));
-  yesterday.forEach((el) => (el.innerHTML = "Yesterday"));
-  daily_btn.classList.add("active");
-  weekly_btn.classList.remove("active");
-  monthly_btn.classList.remove("active");
-});
+function activate(buttons, button) {
+  buttons.forEach((el) => el.classList.remove("active"));
+  button.classList.add("active");
+}
 
-weekly_btn.addEventListener("click", () => {
-  weekly.forEach((el) => el.classList.add("active"));
-  daily.forEach((el) => el.classList.remove("active"));
-  monthly.forEach((el) => el.classList.remove("active"));
-  last_week.forEach((el) => (el.innerHTML = "Last Week"));
-  weekly_btn.classList.add("active");
-  daily_btn.classList.remove("active");
-  monthly_btn.classList.remove("active");
-});
+function previous(id) {
+  if (id == "daily") {
+    yesterday.forEach((el) => (el.innerHTML = "Yesterday"));
+  }
 
-monthly_btn.addEventListener("click", () => {
-  monthly.forEach((el) => el.classList.add("active"));
-  daily.forEach((el) => el.classList.remove("active"));
-  weekly.forEach((el) => el.classList.remove("active"));
-  last_month.forEach((el) => (el.innerHTML = "Last Month"));
-  monthly_btn.classList.add("active");
-  weekly_btn.classList.remove("active");
-  daily.classList.remove("active");
+  if (id == "weekly") {
+    last_week.forEach((el) => (el.innerHTML = "Last Week"));
+  }
+
+  if (id == "monthly") {
+    last_month.forEach((el) => (el.innerHTML = "Last Month"));
+  }
+}
+
+buttons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    weekly.forEach((el) => el.classList.remove("active"));
+    daily.forEach((el) => el.classList.remove("active"));
+    monthly.forEach((el) => el.classList.remove("active"));
+
+    document
+      .querySelectorAll("." + e.currentTarget.id)
+      .forEach((el) => el.classList.add("active"));
+
+    previous(e.currentTarget.id);
+    activate(buttons, button);
+  });
 });
